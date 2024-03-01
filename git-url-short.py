@@ -49,6 +49,7 @@ if len(args) == 3:
 			exit()
 		os.system("rm -rf /tmp/git-short-url/")
 		print(Fore.GREEN + "URL deleted successfully" + Style.RESET_ALL)
+		exit()
 	else:
 		url = args[1]
 		display_name = args[2]
@@ -96,6 +97,7 @@ if len(args) == 3:
 			exit()
 		os.system("rm -rf /tmp/git-short-url/")
 		print(Fore.GREEN + "URL shortened successfully !" + Style.RESET_ALL)
+		exit()
 if len(args) == 2:
 	if args[1] == "-d":
 		print("Usage: urlshort -d <display_name> to delete a short url")
