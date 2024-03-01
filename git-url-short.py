@@ -89,7 +89,7 @@ if len(args) == 3:
 			print(Fore.RED + "Error pushing to repo" + Style.RESET_ALL)
 			exit()
 		os.system("rm -rf /tmp/git-short-url/")
-		print(Fore.GREEN + "URL shortened successfully visit nathaan.me/u/" + display_name + Style.RESET_ALL)
+		print(Fore.GREEN + "URL shortened successfully !" + Style.RESET_ALL)
 	
 else:
 	print("Usage: urlshort <url_to_short> <display_name>\nOr urlshort -d <display_name> to delete a short url")
