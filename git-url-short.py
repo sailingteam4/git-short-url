@@ -5,6 +5,12 @@ import urllib.request
 from git import Repo
 import os
 
+def fast_scandir(dirname):
+    subfolders= [f.path for f in os.scandir(dirname) if f.is_dir()]
+    for dirname in list(subfolders):
+        subfolders.extend(fast_scandir(dirname))
+    return subfolders
+
 args = sys.argv
 repo_url = "git@github.com:sailingteam4/sailingteam4.github.io.git"
 
@@ -90,6 +96,35 @@ if len(args) == 3:
 			exit()
 		os.system("rm -rf /tmp/git-short-url/")
 		print(Fore.GREEN + "URL shortened successfully !" + Style.RESET_ALL)
-	
+if len(args) == 2:
+	if args[1] == "-d":
+		print("Usage: urlshort -d <display_name> to delete a short url")
+		exit()
+	elif (args[1] == "-h" or args[1] == "--help"):
+		print("Usage: urlshort <url_to_short> <display_name>\nOr urlshort -d <display_name> to delete a short url")
+		exit()
+	elif (args[1] == "-l"):
+		if (os.path.exists("/tmp/git-short-url/")):
+			print(Fore.RED + "Repo already exists" + Style.RESET_ALL)
+			entry = input("Do you want to remove the repo? (y/n): ")
+			if entry == "y":
+				os.system("rm -rf /tmp/git-short-url/")
+			else:
+				exit()
+		try:
+			repo = Repo.clone_from(repo_url, "/tmp/git-short-url/")
+		except:
+			print(Fore.RED + "Error cloning repo" + Style.RESET_ALL)
+			exit()
+		try:
+			listfile = fast_scandir("/tmp/git-short-url/u/")
+		except:
+			print(Fore.RED + "Error listing files" + Style.RESET_ALL)
+			exit()
+		print("Shortened URLs display name:")
+		for i in listfile:
+			print(i.split("/")[4])
+		os.system("rm -rf /tmp/git-short-url/")
+		exit()
 else:
 	print("Usage: urlshort <url_to_short> <display_name>\nOr urlshort -d <display_name> to delete a short url")

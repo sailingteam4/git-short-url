@@ -29,3 +29,7 @@ Or if you want to delete a shortened URL:
 ```bash
 python git-url-shortener.py -d [shortened_url]
 ```
+You can also use the -l option to list all shortened URLs:
+```bash
+python git-url-shortener.py -l
+```
